@@ -23,7 +23,7 @@ class WallPaper(object):
 	    resp = None
 	    for try_time in range(self.try_times):
 	        try:
-	            resp = urllib.request.urlopen(req).read()
+	            resp = urllib.request.urlopen(req, timeout=20).read()
 	        except Exception as e:
 	            logging.warn('try ', try_time, ':', e)
 	            resp = None
@@ -53,7 +53,8 @@ class WallPaper(object):
                     img_url = self.img_url_prefix+img_url
                 logging.info('download %s from %s' % (filename, img_url))
                 
-                img_data = urllib.request.urlopen(img_url).read()
+                img_req = urllib.request.Request(url=img_url)
+                img_data = urllib.request.urlopen(img_req, timeout=20).read()
                 logging.info('download %s success' % img_url)
                 
                 open(self.bg_filename_pattern % idx,'wb').write(img_data)
