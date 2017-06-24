@@ -54,7 +54,7 @@ class WallPaper(object):
                 logging.info('download %s from %s' % (filename, img_url))
                 
                 img_req = urllib.request.Request(url=img_url)
-                img_data = urllib.request.urlopen(img_req, timeout=20).read()
+                img_data = urllib.request.urlopen(img_req, timeout=120).read()
                 logging.info('download %s success' % img_url)
                 
                 open(self.bg_filename_pattern % idx,'wb').write(img_data)
